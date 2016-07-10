@@ -8,8 +8,8 @@ var URI = require("urijs");
 
 
 // Connection URL. This is where your mongodb server is running.
-var urlDB = process.env.MONGODB_URI[0];
-// var urlDB  = 'mongodb://admin:a199412@ds017205.mlab.com:17205/url_shortener'
+// var urlDB = process.env.MONGODB_URI[0];
+var urlDB  = 'mongodb://admin:a199412@ds017205.mlab.com:17205/url_shortener'
 var db = mongoskin.db(urlDB, {safe:true})
 
 
