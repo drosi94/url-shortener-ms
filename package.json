@@ -1,0 +1,33 @@
+{
+  "name": "url-shortener-ms",
+  "version": "1.0.0",
+  "description": "Api tutorial for freecodecamp",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongodb": "^2.2.0",
+    "mongoskin": "^2.1.0",
+    "rand-token": "^0.2.1",
+    "urijs": "^1.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drosi94/url-shortener-ms.git"
+  },
+  "keywords": [
+    "url",
+    "shortener",
+    "freecodecamp"
+  ],
+  "author": "drosi94",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drosi94/url-shortener-ms/issues"
+  },
+  "homepage": "https://github.com/drosi94/url-shortener-ms#readme"
+}
