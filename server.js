@@ -8,7 +8,7 @@ var URI = require("urijs");
 
 
 // Connection URL. This is where your mongodb server is running.
-var urlDB = 'mongodb://admin:a199412@ds017205.mlab.com:17205/url_shortener';
+var urlDB = process.env.MONGODB_URI;
 var db = mongoskin.db(urlDB, {safe:true})
 
 
@@ -60,11 +60,22 @@ app.get('/:collectionName/:token', function(req, res){
         }));
     }else{
       req.collection.find({short : fullUrl(req) +"/urls/"+req.params.token}).toArray(function(e, results){
-        if(!e){
+                      console.log("o");
+
+
+        if(e) console.log(e.toString());
+        if(results.length > 0){
+            console.log("o");
            res.writeHead(301,{Location: results[0].original});
             res.end();
+        }else{
+            console.log("oxi");
         }
       });
+      
+                  res.send(JSON.stringify({
+                error: "Url you provide doesnt exit <3"
+            }));
 
     }
     
