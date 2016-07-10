@@ -9,6 +9,7 @@ var URI = require("urijs");
 
 // Connection URL. This is where your mongodb server is running.
 var urlDB = process.env.MONGODB_URI;
+// var urlDB  = 'mongodb://admin:a199412@ds017205.mlab.com:17205/url_shortener'
 var db = mongoskin.db(urlDB, {safe:true})
 
 
@@ -35,6 +36,7 @@ app.get('/:collectionName/add/:url1//:url2', function(req, res){
         }));
     }else{
         var urls = req.collection;
+        console.log(urls);
         var url = req.params.url1 + "//" + req.params.url2;
         var row = {
                original: url,
@@ -59,20 +61,24 @@ app.get('/:collectionName/:token', function(req, res){
             error: "Wrong Call."
         }));
     }else{
-        var cursorUrl = req.collection.find({short : fullUrl(req) +"/urls/"+req.params.token});
-        if(cursorUrl.hasNext()){
-            var result = cursorUrl.next()
-            res.writeHead(301,{Location: result.original});
-            res.end();
-        }else{
-            res.send(JSON.stringify({
-                error: "Url doesnt exist."
-            }));  
-        }
-        
+            //         res.writeHead(301,{Location: result.original});
+            // res.end();
+    
+       req.collection.find({short: fullUrl(req) +"/urls/"+req.params.token}, {original:1}).limit(1).each(function(err, result){
+            console.log(result)
+            if(result != null){
+                if(result.original != null){
+                res.writeHead(301,{Location: result.original});
+                res.end();
+                }
+            }
+       });
+       
+               res.send(JSON.stringify({
+            error: "Url, doesnt exists."
+        }));
+
     }
-    
-    
 });
 
 
