@@ -59,13 +59,17 @@ app.get('/:collectionName/:token', function(req, res){
             error: "Wrong Call."
         }));
     }else{
-      req.collection.find({short : fullUrl(req) +"/urls/"+req.params.token}).toArray(function(e, results){
-
-           res.writeHead(301,{Location: results[0].original});
+        var cursorUrl = req.collection.find({short : fullUrl(req) +"/urls/"+req.params.token});
+        if(cursorUrl.hasNext()){
+            var result = cursorUrl.next()
+            res.writeHead(301,{Location: result.original});
             res.end();
-
-      });
-
+        }else{
+            res.send(JSON.stringify({
+                error: "Url doesnt exist."
+            }));  
+        }
+        
     }
     
     
